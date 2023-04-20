@@ -10,12 +10,14 @@ from io import BytesIO
 import requests
 from flask_cors import CORS
 
-import chatgpt_module
+
 
 app = Flask(__name__, template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
 
-m_gpt = chatgpt_module()
+
+# import chatgpt_module
+# m_gpt = chatgpt_module()
 
 
 @app.route("/")
