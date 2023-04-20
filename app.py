@@ -8,14 +8,14 @@ import torch
 from PIL import Image
 from io import BytesIO
 import requests
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
-from gpt.chatgpt_module import ChatGPT
+import chatgpt_module
 
 app = Flask(__name__, template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
 
-m_gpt = ChatGPT()
+m_gpt = chatgpt_module()
 
 
 @app.route("/")
