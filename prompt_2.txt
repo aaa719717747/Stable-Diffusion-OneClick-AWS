@@ -1,0 +1,1 @@
+在你输出了内容之后，你需要提取这些内容里面的关键字，并在下方用"KEYWORDS: [comma saperate_translate to English]"的格式总结这些内容。如果你已经完全理解规则了，那么就开始游戏吧！

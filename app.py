@@ -10,24 +10,35 @@ from io import BytesIO
 import requests
 from flask_cors import CORS, cross_origin
 
+from gpt.chatgpt_module import ChatGPT
+
 app = Flask(__name__, template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
+
+m_gpt = ChatGPT()
+
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
+
 @app.get("/health")
 def health_check():
     return "Healthy", 200
+
 
 @app.get("/hello")
 def hello():
     return "hi!", 200
 
-@app.get("/gpt")
-def gpt():
-    return "dbsjkdbnjksndjkns!", 200
+
+@app.post("/gpt")
+def ask_to_gpt():
+    data = request.json
+    result = m_gpt.request_gpt_quesion(data["prompt"])
+    return result, 200
+
 
 @app.post("/txt2img")
 def text_to_img():
@@ -40,10 +51,14 @@ def text_to_img():
         model_id, scheduler=scheduler, revision="fp16", torch_dtype=torch.float16
     )
     pipe = pipe.to("cuda")
-    image = pipe(data["prompt"], guidance_scale=7.5, num_inference_steps=20,height=data["height"], width=data["width"]).images[0]
+    image = \
+        pipe(data["prompt"], guidance_scale=7.5, num_inference_steps=20, height=data["height"],
+             width=data["width"]).images[
+            0]
 
     image.save(output)
     return send_file(output), 200
+
 
 @app.post("/img2img")
 def img_to_img():
@@ -64,5 +79,6 @@ def img_to_img():
 
     images[0].save(output)
     return send_file(output), 200
+
 
 app.run(host='0.0.0.0', port=5000)
