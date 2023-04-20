@@ -21,6 +21,10 @@ def index():
 def health_check():
     return "Healthy", 200
 
+@app.get("/hello")
+def hello():
+    return "hi!", 200
+
 @app.post("/txt2img")
 def text_to_img():
     data = request.json
