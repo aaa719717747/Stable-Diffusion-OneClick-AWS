@@ -25,6 +25,10 @@ def health_check():
 def hello():
     return "hi!", 200
 
+@app.get("/gpt")
+def gpt():
+    return "dbsjkdbnjksndjkns!", 200
+
 @app.post("/txt2img")
 def text_to_img():
     data = request.json
