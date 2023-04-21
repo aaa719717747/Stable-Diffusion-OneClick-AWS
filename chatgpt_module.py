@@ -1,4 +1,5 @@
 import openai
+import os
 
 
 class ChatGPT:
