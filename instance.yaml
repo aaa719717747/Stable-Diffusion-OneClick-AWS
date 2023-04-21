@@ -101,6 +101,7 @@ Resources:
             sudo apt install python3-pip -y
             pip install --upgrade git+https://github.com/huggingface/diffusers.git transformers accelerate scipy safetensors xformers
             pip install flask-cors
+            pip install openai
             cd /home/ubuntu/
             git clone https://github.com/aaa719717747/Stable-Diffusion-OneClick-AWS.git
             wget https://civitai.com/api/download/models/14856 -O ./Stable-Diffusion-OneClick-AWS/moxin.safetensors
