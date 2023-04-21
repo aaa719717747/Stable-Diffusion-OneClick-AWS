@@ -4,7 +4,7 @@ import openai
 class ChatGPT:
     def __init__(self):
         self.result = ""
-        openai.api_key = "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"
+        openai.api_key = "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"
         #
         # openai.proxy = "10.22.1.78:9999"
         # openai.proxy = "192.168.101.12:12307"
