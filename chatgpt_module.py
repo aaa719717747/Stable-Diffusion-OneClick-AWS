@@ -4,12 +4,14 @@ import os
 
 class ChatGPT:
     def __init__(self):
+
         self.result = ""
         openai.api_key=os.environ.get('OPENAI_API_KEY')
         #
         # openai.proxy = "10.22.1.78:9999"
         # openai.proxy = "192.168.101.12:12307"
         self.history = []
+        self.pre_command_begin()
 
     def pre_command_begin(self):
         self.pre_prompts = []
@@ -52,11 +54,9 @@ class ChatGPT:
         response_obj = s[0]
         # 获取 "content" 的值
         content = response_obj["message"]["content"]
-        print(f"AI:{content}")
         # self.history.append({"role": "ai", "content": content})
         self.history.append(f'旁白:[{content}]')
         if len(self.history) >= 15:
             self.history.pop(9)
 
-        print(f'最新的历史:{self.history}')
         return content
