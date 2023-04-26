@@ -15,7 +15,7 @@ CORS(app, support_credentials=True)
 
 import chatgpt_module
 
-# m_gpt = chatgpt_module.ChatGPT()
+m_gpt = chatgpt_module.ChatGPT()
 
 
 @app.route("/")
@@ -33,11 +33,11 @@ def hello():
     return "hi!", 200
 
 
-# @app.post("/gpt")
-# def ask_to_gpt():
-#     data = request.json
-#     result = m_gpt.request_gpt_quesion(data["prompt"])
-#     return result, 200
+@app.post("/gpt")
+def ask_to_gpt():
+    data = request.json
+    result = m_gpt.request_gpt_quesion(data["prompt"])
+    return result, 200
 
 
 @app.post("/txt2img")
@@ -52,7 +52,7 @@ def text_to_img():
     )
     pipe = pipe.to("cuda")
     image = \
-        pipe(data["prompt"], guidance_scale=7.5, num_inference_steps=20, height=data["height"],
+        pipe(data["prompt"], guidance_scale=7.5, num_inference_steps=5, height=data["height"],
              width=data["width"]).images[
             0]
 
