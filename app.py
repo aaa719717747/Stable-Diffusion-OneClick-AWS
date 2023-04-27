@@ -9,6 +9,7 @@ from PIL import Image
 from io import BytesIO
 import requests
 from flask_cors import CORS
+
 # from oss_moudle import OSSUploader
 
 app = Flask(__name__, template_folder="frontend", static_folder="frontend")
@@ -17,11 +18,6 @@ CORS(app, support_credentials=True)
 import chatgpt_module
 
 m_gpt = chatgpt_module.ChatGPT()
-
-# url = "13.215.103.161:5000"
-# # 创建 OSSUploader 对象
-# oss_moudle = OSSUploader('LTAI5tKnW62J7PQGjzh15kGJ', 'bUcFyH5qj2SBKmkCp8i4D2d1jyBuzD',
-#                         'http://oss-cn-chengdu.aliyuncs.com', 'aisupport')
 
 
 @app.route("/")
@@ -37,6 +33,13 @@ def health_check():
 @app.get("/hello")
 def hello():
     return "hi!", 200
+
+
+# 切换剧本
+@app.post("/changedscript")
+def changedscript():
+    data = request.json
+    return m_gpt.changedscript_gpt(data["script"]), 200
 
 
 @app.post("/gpt")

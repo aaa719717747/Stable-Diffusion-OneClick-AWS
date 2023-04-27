@@ -4,39 +4,20 @@ import os
 
 class ChatGPT:
     def __init__(self):
-
         self.result = ""
-        openai.api_key=os.environ.get('OPENAI_API_KEY')
+        openai.api_key = os.environ.get('OPENAI_API_KEY')
         #
         # openai.proxy = "10.22.1.78:9999"
         # openai.proxy = "192.168.101.12:12307"
         self.history = []
-        self.pre_command_begin()
-
-    def pre_command_begin(self):
-        self.pre_prompts = []
-
-        self.txtcontent = open('prompt.txt', encoding='utf-8')
-        self.promptSdTip = self.txtcontent.read()
-        self.txtcontent1 = open('prompt_1.txt', encoding='utf-8')
-        self.promptSdTip1 = self.txtcontent1.read()
-        self.txtcontent2 = open('prompt_2.txt', encoding='utf-8')
-        self.promptSdTip2 = self.txtcontent2.read()
-        self.pre_prompts.append(self.promptSdTip)
-        self.pre_prompts.append(self.promptSdTip1)
-        self.pre_prompts.append(self.promptSdTip2)
-        self.index_prompt = 0
-
-        for client in range(3):
-            responese = self.request_gpt_quesion(self.pre_prompts[self.index_prompt])
-            if responese:
-                self.history.append(self.pre_prompts[self.index_prompt])
-                self.index_prompt += 1
-
-        print("预处理完毕！")
 
     # 默认输入的信息中，包含场景，人物，动物，植物，颜色，建筑物那么我们将会直接提取然后出图
     import json
+
+    # 切换剧本
+    def changedscript_gpt(self, scriptcontent):
+        self.history.clear()
+        return self.request_gpt_quesion(scriptcontent)
 
     def request_gpt_quesion(self, user_Input):
         # self.history.append({"role": "user", "content": user_Input})
