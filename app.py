@@ -43,7 +43,7 @@ def ask_to_gpt():
 @app.post("/txt2img")
 def text_to_img():
     data = request.json
-    model_id = "stabilityai/stable-diffusion-2"
+    model_id = "runwayml/stable-diffusion-v1-5"
     output = "output_txt2img.png"
 
     scheduler = EulerDiscreteScheduler.from_pretrained(model_id, subfolder="scheduler")
