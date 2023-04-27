@@ -9,7 +9,7 @@ from PIL import Image
 from io import BytesIO
 import requests
 from flask_cors import CORS
-from oss_moudle import OSSUploader
+# from oss_moudle import OSSUploader
 
 app = Flask(__name__, template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
@@ -18,11 +18,10 @@ import chatgpt_module
 
 m_gpt = chatgpt_module.ChatGPT()
 
-# self.url = "http://159.75.249.95:9099"
-url = "13.215.103.161:5000"
-# 创建 OSSUploader 对象
-oss_moudle = OSSUploader('LTAI5tKnW62J7PQGjzh15kGJ', 'bUcFyH5qj2SBKmkCp8i4D2d1jyBuzD',
-                        'http://oss-cn-chengdu.aliyuncs.com', 'aisupport')
+# url = "13.215.103.161:5000"
+# # 创建 OSSUploader 对象
+# oss_moudle = OSSUploader('LTAI5tKnW62J7PQGjzh15kGJ', 'bUcFyH5qj2SBKmkCp8i4D2d1jyBuzD',
+#                         'http://oss-cn-chengdu.aliyuncs.com', 'aisupport')
 
 
 @app.route("/")
@@ -64,9 +63,9 @@ def text_to_img():
             0]
 
     image.save(output)
-    url = oss_moudle.upload_file()
-    # send_file(output)
-    return url, 200
+    # url = oss_moudle.upload_file()
+    #
+    return send_file(output), 200
 
 
 @app.post("/img2img")
