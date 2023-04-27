@@ -43,7 +43,7 @@ def ask_to_gpt():
 @app.post("/txt2img")
 def text_to_img():
     data = request.json
-    model_id = "eimiss/EimisAnimeDiffusion_1.0v"
+    model_id = "allenai/longformer-base-4096"
     output = "output_txt2img.png"
 
     scheduler = EulerDiscreteScheduler.from_pretrained(model_id, subfolder="scheduler")
@@ -52,7 +52,7 @@ def text_to_img():
     )
     pipe = pipe.to("cuda")
     image = \
-        pipe(data["prompt"], guidance_scale=7.5, num_inference_steps=5, height=data["height"],
+        pipe(data["prompt"], guidance_scale=7.5, num_inference_steps=20, height=data["height"],
              width=data["width"]).images[
             0]
 
