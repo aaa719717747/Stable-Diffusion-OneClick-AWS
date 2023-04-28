@@ -42,7 +42,7 @@ def fetch_story_history():
 @app.post("/changedscript")
 def changedscript():
     data = request.json
-    return m_gpt.changedscript_gpt(data["script"]), 200
+    return m_gpt.changedscript_gpt(data["prompt"]), 200
 
 
 @app.post("/gpt")
