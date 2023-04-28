@@ -45,13 +45,6 @@ def changedscript():
     return m_gpt.changedscript_gpt(data["script"]), 200
 
 
-# 切换剧本
-@app.post("/changedscript")
-def changedscript():
-    data = request.json
-    return m_gpt.changedscript_gpt(data["prompt"]), 200
-
-
 @app.post("/gpt")
 def ask_to_gpt():
     data = request.json
