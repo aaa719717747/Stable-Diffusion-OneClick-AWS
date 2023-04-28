@@ -35,11 +35,21 @@ def hello():
     return "hi!", 200
 
 
-# 切换剧本
+@app.post("/history")
+def fetch_story_history():
+    return m_gpt.request_gpt_quesion("请总结我的冒险历程，要求有时间线，有故事节点，有结局。不超过150字"), 200
+
 @app.post("/changedscript")
 def changedscript():
     data = request.json
     return m_gpt.changedscript_gpt(data["script"]), 200
+
+
+# 切换剧本
+@app.post("/changedscript")
+def changedscript():
+    data = request.json
+    return m_gpt.changedscript_gpt(data["prompt"]), 200
 
 
 @app.post("/gpt")
