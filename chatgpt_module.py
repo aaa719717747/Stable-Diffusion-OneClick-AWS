@@ -42,7 +42,8 @@ class ChatGPT:
         self.result = "".join(str(value) for value in self.history)
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": self.result}]
+            messages=[{"role": "user", "content": self.result}],
+            temperature=0.7
         )
 
         s = response['choices']
@@ -57,5 +58,5 @@ class ChatGPT:
         if len(self.history) >= 15:
             self.history.pop(9)
 
-        print(f'最新的历史:{self.history}')
+        # print(f'最新的历史:{self.history}')
         return content
