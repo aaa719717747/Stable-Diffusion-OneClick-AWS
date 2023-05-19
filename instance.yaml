@@ -25,7 +25,7 @@ Resources:
     Properties:
       CidrBlock: "10.0.1.0/24"
       VpcId: !Ref MyVPC
-      AvailabilityZone: !Select [0, !GetAZs ""]
+      AvailabilityZone: !Select [ 0, !GetAZs "" ]
       Tags:
         - Key: Name
           Value: "My Public Subnet"
@@ -79,9 +79,9 @@ Resources:
           Ebs:
             VolumeSize: 100
             VolumeType: gp3
-      "Tags" : [
-            {"Key" : "Name", "Value" : "stablediffusion-onclick"},
-        ]
+      "Tags": [
+        { "Key": "Name", "Value": "stablediffusion-onclick" },
+      ]
       KeyName: !Ref KeyPairName
       # SecurityGroupIds:
       #   - !Ref MySecurityGroup
@@ -94,40 +94,41 @@ Resources:
             - !Ref MySecurityGroup
       UserData:
         'Fn::Base64': |
-            #!/bin/bash
-            sudo apt update -y
-            sudo apt upgrade -y
-            sudo apt install nvidia-driver-525 -y
-            sudo apt install python3-pip -y
-            pip install --upgrade git+https://github.com/huggingface/diffusers.git transformers accelerate scipy safetensors xformers
-            pip install flask-cors
-            cd /home/ubuntu/
-            git clone https://github.com/aaa719717747/Stable-Diffusion-OneClick-AWS.git
-            wget https://civitai.com/api/download/models/14856 -O ./Stable-Diffusion-OneClick-AWS/moxin.safetensors
-            sudo chown  ubuntu Stable-Diffusion-OneClick-AWS
-            chmod u+w Stable-Diffusion-OneClick-AWS
-            sudo chown -R ubuntu Stable-Diffusion-OneClick-AWS/*
-            chmod u+w Stable-Diffusion-OneClick-AWS/*
-            echo "------Stable Diffusion Install Finished ------"
-            # Create systemd service
-            sudo tee /etc/systemd/system/myapp.service > /dev/null <<EOF
-            [Unit]
-            Description=Diffusion Service
-            After=network.target
-            [Service]
-            User=ubuntu
-            ExecStart=/usr/bin/python3 /home/ubuntu/Stable-Diffusion-OneClick-AWS/app.py
-            WorkingDirectory=/home/ubuntu/Stable-Diffusion-OneClick-AWS
-            Restart=always
-            [Install]
-            WantedBy=multi-user.target
-            EOF
-            # Reload systemd and enable service
-            sudo systemctl daemon-reload
-            sudo systemctl enable myapp.service
-            # Start the service
-            sudo systemctl start myapp.service
-            sudo reboot
+          #!/bin/bash
+          sudo apt update -y
+          sudo apt upgrade -y
+          sudo apt install nvidia-driver-525 -y
+          sudo apt install python3-pip -y
+          pip install --upgrade git+https://github.com/huggingface/diffusers.git transformers accelerate scipy safetensors xformers
+          pip install flask-cors
+          pip install openai
+          cd /home/ubuntu/
+          git clone https://github.com/aaa719717747/Stable-Diffusion-OneClick-AWS.git
+          wget https://civitai.com/api/download/models/14856 -O ./Stable-Diffusion-OneClick-AWS/moxin.safetensors
+          sudo chown  ubuntu Stable-Diffusion-OneClick-AWS
+          chmod u+w Stable-Diffusion-OneClick-AWS
+          sudo chown -R ubuntu Stable-Diffusion-OneClick-AWS/*
+          chmod u+w Stable-Diffusion-OneClick-AWS/*
+          echo "------Stable Diffusion Install Finished ------"
+          # Create systemd service
+          sudo tee /etc/systemd/system/myapp.service > /dev/null <<EOF
+          [Unit]
+          Description=Diffusion Service
+          After=network.target
+          [Service]
+          User=ubuntu
+          ExecStart=/usr/bin/python3 /home/ubuntu/Stable-Diffusion-OneClick-AWS/app.py
+          WorkingDirectory=/home/ubuntu/Stable-Diffusion-OneClick-AWS
+          Restart=always
+          [Install]
+          WantedBy=multi-user.target
+          EOF
+          # Reload systemd and enable service
+          sudo systemctl daemon-reload
+          sudo systemctl enable myapp.service
+          # Start the service
+          sudo systemctl start myapp.service
+          sudo reboot
   MyEIP:
     Type: AWS::EC2::EIP
 
@@ -162,10 +163,10 @@ Outputs:
 Parameters:
   InstanceAMI:
     Type: AWS::EC2::Image::Id
-    Description: ID of the AMI to use for the EC2 instance 
+    Description: ID of the AMI to use for the EC2 instance
   KeyPairName:
     Type: AWS::EC2::KeyPair::KeyName
-    Description: Name of the SSH key pair to use for the EC2 instance   
+    Description: Name of the SSH key pair to use for the EC2 instance
   InstanceType:
     Type: String
     Description: EC2 instance type

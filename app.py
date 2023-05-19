@@ -10,14 +10,19 @@ from io import BytesIO
 import requests
 from flask_cors import CORS
 
-
+# from oss_moudle import OSSUploader
 
 app = Flask(__name__, template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
 
+import chatgpt_module
 
+<<<<<<< HEAD
 import chatgpt_module
 m_gpt = chatgpt_module()
+=======
+m_gpt = chatgpt_module.ChatGPT()
+>>>>>>> 20aefcd2cd34ad1a39465264758664f5c833f281
 
 
 @app.route("/")
@@ -35,6 +40,16 @@ def hello():
     return "hi!", 200
 
 
+@app.post("/history")
+def fetch_story_history():
+    return m_gpt.request_gpt_quesion("请总结我的冒险历程，要求有时间线，有故事节点，有结局。不超过150字"), 200
+
+@app.post("/changedscript")
+def changedscript():
+    data = request.json
+    return m_gpt.changedscript_gpt(data["prompt"]), 200
+
+
 @app.post("/gpt")
 def ask_to_gpt():
     data = request.json
@@ -45,7 +60,7 @@ def ask_to_gpt():
 @app.post("/txt2img")
 def text_to_img():
     data = request.json
-    model_id = "stabilityai/stable-diffusion-2"
+    model_id = "runwayml/stable-diffusion-v1-5"
     output = "output_txt2img.png"
 
     scheduler = EulerDiscreteScheduler.from_pretrained(model_id, subfolder="scheduler")
@@ -54,11 +69,13 @@ def text_to_img():
     )
     pipe = pipe.to("cuda")
     image = \
-        pipe(data["prompt"], guidance_scale=7.5, num_inference_steps=20, height=data["height"],
+        pipe(data["prompt"], guidance_scale=7.5, num_inference_steps=15, height=data["height"],
              width=data["width"]).images[
             0]
 
     image.save(output)
+    # url = oss_moudle.upload_file()
+    #
     return send_file(output), 200
 
 
