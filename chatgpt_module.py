@@ -37,13 +37,13 @@ class ChatGPT:
 
     def request_gpt_quesion(self, user_Input):
         # self.history.append({"role": "user", "content": user_Input})
-        self.history.append(f'玩家:[{user_Input}]')
+        self.history.append(f'user:[{user_Input}]')
         self.result = ""
         self.result = "".join(str(value) for value in self.history)
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": self.result}],
-            temperature=0.7
+            temperature=0
         )
 
         s = response['choices']
@@ -54,7 +54,7 @@ class ChatGPT:
         content = response_obj["message"]["content"]
         print(f"AI:{content}")
         # self.history.append({"role": "ai", "content": content})
-        self.history.append(f'旁白:[{content}]')
+        self.history.append(f'ai:[{content}]')
         if len(self.history) >= 15:
             self.history.pop(9)
 

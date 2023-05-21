@@ -17,12 +17,10 @@ CORS(app, support_credentials=True)
 
 import chatgpt_module
 
-<<<<<<< HEAD
 import chatgpt_module
 m_gpt = chatgpt_module()
-=======
+
 m_gpt = chatgpt_module.ChatGPT()
->>>>>>> 20aefcd2cd34ad1a39465264758664f5c833f281
 
 
 @app.route("/")
