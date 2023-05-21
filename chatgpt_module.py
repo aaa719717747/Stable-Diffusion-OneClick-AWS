@@ -52,7 +52,7 @@ class ChatGPT:
         response_obj = s[0]
         # 获取 "content" 的值
         content = response_obj["message"]["content"]
-        print(f"AI:{content}")
+        # print(f"AI:{content}")
         # self.history.append({"role": "ai", "content": content})
         self.history.append(f'ai:[{content}]')
         if len(self.history) >= 15:
