@@ -22,11 +22,6 @@ import chatgpt_module
 
 m_gpt = chatgpt_module.ChatGPT()
 
-
-
-
-
-
 @app.route("/")
 def index():
     return render_template("index.html")

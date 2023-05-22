@@ -43,7 +43,7 @@ class ChatGPT:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": self.result}],
-            temperature=0
+            temperature=0.1
         )
 
         s = response['choices']
