@@ -15,12 +15,10 @@ from flask_cors import CORS
 app = Flask(__name__, template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
 
-# import chatgpt_module
-
 import chatgpt_module
-# m_gpt = chatgpt_module()
 
 m_gpt = chatgpt_module.ChatGPT()
+
 
 @app.route("/")
 def index():
@@ -50,7 +48,7 @@ def changedscript():
 @app.post("/gpt")
 def ask_to_gpt():
     data = request.json
-    result = m_gpt.changedscript_gpt(data["prompt"])
+    result = m_gpt.request_gpt_quesion(data["prompt"])
     return result, 200
 
 
