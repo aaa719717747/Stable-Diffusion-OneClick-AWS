@@ -50,7 +50,7 @@ def changedscript():
 @app.post("/gpt")
 def ask_to_gpt():
     data = request.json
-    result = m_gpt.request_gpt_quesion(data["prompt"])
+    result = m_gpt.changedscript_gpt(data["prompt"])
     return result, 200
 
 

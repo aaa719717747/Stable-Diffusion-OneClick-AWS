@@ -35,7 +35,7 @@ class ChatGPT:
     # 默认输入的信息中，包含场景，人物，动物，植物，颜色，建筑物那么我们将会直接提取然后出图
     import json
 
-    def request_gpt_quesion(self, user_Input):
+    def changedscript_gpt(self, user_Input):
         # self.history.append({"role": "user", "content": user_Input})
         self.history.append(f'user:[{user_Input}]')
         self.result = ""
