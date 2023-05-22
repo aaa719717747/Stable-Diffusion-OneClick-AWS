@@ -68,7 +68,7 @@ def text_to_img():
              width=data["width"]).images[
             0]
 
-    image.save(output)
+    # image.save(output)
     # url = oss_moudle.upload_file()
     #
     return send_file(output), 200
