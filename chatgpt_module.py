@@ -15,9 +15,8 @@ class ChatGPT:
     import json
 
     # 切换剧本
-    def changedscript_gpt(self, scriptcontent):
+    def changedscript_gpt(self):
         self.history.clear()
-        return self.request_gpt_quesion(scriptcontent)
 
     def request_gpt_quesion(self, user_Input):
         # self.history.append({"role": "user", "content": user_Input})
