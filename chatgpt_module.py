@@ -20,12 +20,12 @@ class ChatGPT:
         return "clear"
 
     def request_gpt_quesion(self, user_Input):
-        # self.history.append(f'user:[{user_Input}]')
+        self.history.append(f'user:[{user_Input}]')
         self.result = ""
         self.result = "".join(str(value) for value in self.history)
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": user_Input}]
+            messages=[{"role": "user", "content": self.result}]
         )
 
         s = response['choices']
@@ -34,8 +34,8 @@ class ChatGPT:
         response_obj = s[0]
         # 获取 "content" 的值
         content = response_obj["message"]["content"]
-        # self.history.append(f'AI:[{content}]')
-        # if len(self.history) >= 20:
-        #     self.history.pop(18)
+        self.history.append(f'assistant:[{content}]')
+        if len(self.history) >= 20:
+            self.history.pop(9)
 
         return content
