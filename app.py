@@ -47,11 +47,7 @@ def changedscript():
 
 @app.post("/gpt")
 def ask_to_gpt():
-    print(f':ask_to_gpt')
-    print(f'Rdata:{request.data}')
     data = request.json
-
-    print(f'data:{data}')
     result = m_gpt.request_gpt_quesion(data["prompt"])
     return result, 200
 
