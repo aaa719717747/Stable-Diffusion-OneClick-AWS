@@ -39,6 +39,7 @@ def hello():
 def fetch_story_history():
     return m_gpt.request_gpt_quesion("请总结我的冒险历程，要求有时间线，有故事节点，有结局。不超过150字"), 200
 
+
 @app.post("/changedscript")
 def changedscript():
     return m_gpt.changedscript_gpt(), 200
@@ -46,7 +47,9 @@ def changedscript():
 
 @app.post("/gpt")
 def ask_to_gpt():
+    print(f':ask_to_gpt')
     data = request.json
+    print(f'data:{data}')
     result = m_gpt.request_gpt_quesion(data["prompt"])
     return result, 200
 
