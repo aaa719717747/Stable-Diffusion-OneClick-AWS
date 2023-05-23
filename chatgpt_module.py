@@ -36,6 +36,6 @@ class ChatGPT:
         content = response_obj["message"]["content"]
         self.history.append(f'assistant:[{content}]')
         if len(self.history) >= 20:
-            self.history.pop(9)
+            self.history.pop(13)
 
         return content
