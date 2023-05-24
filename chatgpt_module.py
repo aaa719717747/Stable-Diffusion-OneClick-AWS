@@ -53,7 +53,8 @@ class ChatGPT:
         self.history.append(f'assistant:[{content}]')
 
         total_tokens = sum(len(message['content']) for message in self.history)
-        print(f'长度:{len(total_tokens)}')
+        print(f'长度:{total_tokens}')
+
         if len(self.history) >= 15:
             self.history.pop(13)
 
