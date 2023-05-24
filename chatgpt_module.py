@@ -39,6 +39,15 @@ class ChatGPT:
         self.history.append({"role": "user", "content": user_Input})
         self.result = ""
         self.result = "".join(str(value) for value in self.history)
+
+        total_tokens = sum(len(message['content']) for message in self.history)
+        print(f'长度:{total_tokens}')
+
+        while total_tokens >= 3460:
+            self.history.pop(13)
+            total_tokens = sum(len(message['content']) for message in self.history)
+
+        self.result = "".join(str(value) for value in self.history)
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": self.result}]
@@ -51,10 +60,5 @@ class ChatGPT:
         # 获取 "content" 的值
         content = response_obj["message"]["content"]
         self.history.append({"role": "assistant", "content": content})
-        total_tokens = sum(len(message['content']) for message in self.history)
-        print(f'长度:{total_tokens}')
-
-        if len(self.history) >= 15:
-            self.history.pop(13)
 
         return content
