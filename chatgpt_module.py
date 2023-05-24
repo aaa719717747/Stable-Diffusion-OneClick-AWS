@@ -35,7 +35,8 @@ class ChatGPT:
         # 获取 "content" 的值
         content = response_obj["message"]["content"]
         self.history.append(f'assistant:[{content}]')
-        if len(self.history) >= 20:
-            self.history.pop(13)
+        print(f'长度:{len(self.history)}')
+        if len(self.history) >= 15:
+            self.history.pop(9)
 
         return content
