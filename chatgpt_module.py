@@ -23,17 +23,16 @@ class ChatGPT:
     def request_gpt_quesion(self, user_Input):
         self.history.append(f'user:{user_Input}')
         self.Tokens += len(user_Input)
-        result = "".join(str(value) for value in self.history)
 
-        while self.Tokens >= 3550:
+        while self.Tokens >= 3000:
             self.Tokens -= len(self.history[13])
             self.history.pop(13)
 
         print(f'Tokens:{self.Tokens}')
-        result2 = "".join(str(value) for value in self.history)
+        result = "".join(str(value) for value in self.history)
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": result2}]
+            messages=[{"role": "user", "content": result}]
         )
 
         s = response['choices']
