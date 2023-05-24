@@ -19,6 +19,22 @@ class ChatGPT:
         self.history.clear()
         return "clear"
 
+    def trim_history(history):
+        total_tokens = sum(len(message['content']) for message in history)
+        if total_tokens <= 4096:
+            return history
+
+        excess_tokens = total_tokens - 4096
+        tokens_to_remove = 0
+
+        # 递归移除历史记录中的旧内容，直到满足长度要求
+        for i, message in enumerate(history):
+            tokens_to_remove += len(message['content'])
+            if tokens_to_remove >= excess_tokens:
+                return history[i + 1:]
+
+        return history
+
     def request_gpt_quesion(self, user_Input):
         self.history.append(f'user:[{user_Input}]')
         self.result = ""
@@ -35,8 +51,10 @@ class ChatGPT:
         # 获取 "content" 的值
         content = response_obj["message"]["content"]
         self.history.append(f'assistant:[{content}]')
-        print(f'长度:{len(self.history)}')
+
+        total_tokens = sum(len(message['content']) for message in self.history)
+        print(f'长度:{len(total_tokens)}')
         if len(self.history) >= 15:
-            self.history.pop(9)
+            self.history.pop(13)
 
         return content
