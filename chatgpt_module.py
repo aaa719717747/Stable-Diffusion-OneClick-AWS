@@ -24,7 +24,7 @@ class ChatGPT:
         self.Tokens += len(user_Input)
         result = "".join(str(value) for value in self.history)
 
-        while self.Tokens >= 4000:
+        while self.Tokens >= 3550:
             self.Tokens -= len(self.history[13])
             self.history.pop(13)
 
