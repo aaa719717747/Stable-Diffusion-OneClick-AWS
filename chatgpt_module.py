@@ -36,7 +36,7 @@ class ChatGPT:
         return history
 
     def request_gpt_quesion(self, user_Input):
-        self.history.append(f'user:[{user_Input}]')
+        self.history.append({"role": "user", "content": user_Input})
         self.result = ""
         self.result = "".join(str(value) for value in self.history)
         response = openai.ChatCompletion.create(
@@ -50,8 +50,7 @@ class ChatGPT:
         response_obj = s[0]
         # 获取 "content" 的值
         content = response_obj["message"]["content"]
-        self.history.append(f'assistant:[{content}]')
-
+        self.history.append({"role": "assistant", "content": content})
         total_tokens = sum(len(message['content']) for message in self.history)
         print(f'长度:{total_tokens}')
 
