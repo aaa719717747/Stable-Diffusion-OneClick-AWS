@@ -1,6 +1,6 @@
 import openai
 import os
-from tiktoken import Tokenizer, TokenCount
+# from tiktoken import Tokenizer
 
 
 class ChatGPT:
@@ -11,15 +11,14 @@ class ChatGPT:
         # openai.proxy = "192.168.101.12:12307"
         self.history = []
         self.Tokens = 0
-        self.tokenizer = Tokenizer()
+        # self.tokenizer = Tokenizer()
 
     # 默认输入的信息中，包含场景，人物，动物，植物，颜色，建筑物那么我们将会直接提取然后出图
     import json
 
-    def count_tokens(self, text):
-        token_count = TokenCount()
-        token_count.add_tokens(self.tokenizer.tokenize(text))
-        return token_count.num_tokens
+    # def count_tokens(self, text):
+    #     token_list = list(tokenizer.tokenize(text))
+    #     return len(token_list)
 
     # 切换剧本
     def changedscript_gpt(self):
@@ -29,11 +28,11 @@ class ChatGPT:
 
     def request_gpt_quesion(self, user_Input):
         self.history.append(f'user:{user_Input}')
-        self.Tokens += self.count_tokens(user_Input)
+        self.Tokens += len(user_Input)
 
-        while self.Tokens >= 4000:
+        while self.Tokens >= 3200:
             oldest_msg = self.history.pop(-2)
-            self.Tokens -= self.count_tokens(oldest_msg)
+            self.Tokens -= len(oldest_msg)
 
         print(f'Tokens:{self.Tokens}')
         result = "".join(str(value) for value in self.history)
