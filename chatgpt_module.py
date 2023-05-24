@@ -17,6 +17,7 @@ class ChatGPT:
     # 切换剧本
     def changedscript_gpt(self):
         self.history.clear()
+        self.Tokens = 0
         return "clear"
 
     def request_gpt_quesion(self, user_Input):
