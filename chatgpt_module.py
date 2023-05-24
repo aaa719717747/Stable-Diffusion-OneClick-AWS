@@ -43,7 +43,7 @@ class ChatGPT:
         total_tokens = sum(len(message['content']) for message in self.history)
         print(f'长度:{total_tokens}')
 
-        while total_tokens >= 3850:
+        while total_tokens >= 3500:
             self.history.pop(len(self.history)-1)
             total_tokens = sum(len(message['content']) for message in self.history)
 
@@ -59,6 +59,6 @@ class ChatGPT:
         response_obj = s[0]
         # 获取 "content" 的值
         content = response_obj["message"]["content"]
-        self.history.append({"role": "assistant", "content": content})
+        self.history.append({"role": "ai", "content": content})
 
         return content
