@@ -43,8 +43,8 @@ class ChatGPT:
         total_tokens = sum(len(message['content']) for message in self.history)
         print(f'长度:{total_tokens}')
 
-        while total_tokens >= 3460:
-            self.history.pop(13)
+        while total_tokens >= 3850:
+            self.history.pop(len(self.history)-1)
             total_tokens = sum(len(message['content']) for message in self.history)
 
         self.result = "".join(str(value) for value in self.history)
