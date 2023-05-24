@@ -1,5 +1,7 @@
 import openai
 import os
+
+
 # from tiktoken import Tokenizer
 
 
@@ -28,11 +30,13 @@ class ChatGPT:
 
     def request_gpt_quesion(self, user_Input):
         self.history.append(f'user:{user_Input}')
-        self.Tokens += len(user_Input)
+        self.Tokens += 1
+        if self.Tokens >= 8:
+            self.history.pop(-2)
 
-        while self.Tokens >= 3200:
-            oldest_msg = self.history.pop(-2)
-            self.Tokens -= len(oldest_msg)
+        # while self.Tokens >= 3200:
+        #
+        #     self.Tokens -= len(oldest_msg)
 
         print(f'Tokens:{self.Tokens}')
         result = "".join(str(value) for value in self.history)
