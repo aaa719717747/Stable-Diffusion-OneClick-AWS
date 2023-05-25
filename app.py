@@ -9,15 +9,12 @@ from PIL import Image
 from io import BytesIO
 import requests
 from flask_cors import CORS
-
-# from oss_moudle import OSSUploader
+import openai
+import os
 
 app = Flask(__name__, template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
-
-import chatgpt_module
-
-m_gpt = chatgpt_module.ChatGPT()
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 
 @app.route("/")
@@ -25,21 +22,19 @@ def index():
     return render_template("index.html")
 
 
-@app.get("/health")
-def health_check():
-    return "Healthy", 200
-
-
-@app.get("/hello")
-def hello():
-    return "hi!", 200
-
-
 @app.post("/gpt")
-def ask_to_gpt():
+def request_gpt_quesion():
     data = request.json
-    result = m_gpt.request_gpt_quesion(data["session_history"])
-    return result, 200
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=data["session_list"]
+    )
+    s = response['choices']
+    # 获取第一个响应对象
+    response_obj = s[0]
+    # 获取 "content" 的值
+    content = response_obj["message"]["content"]
+    return content, 200
 
 
 @app.post("/txt2img")
