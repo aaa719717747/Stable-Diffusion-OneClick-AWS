@@ -6,13 +6,13 @@ from diffusers import (
 )
 import torch
 from PIL import Image
-from io import BytesIO
+
+app = Flask(__name__, from io import BytesIO
 import requests
 from flask_cors import CORS
 import openai
 import os
-
-app = Flask(__name__, template_folder="frontend", static_folder="frontend")
+template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
