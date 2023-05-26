@@ -27,7 +27,7 @@ def request_gpt_quesion():
     data = request.json
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        messages=data["history"]
+        messages=data["prompt"]
     )
     s = response['choices']
     # 获取第一个响应对象
