@@ -6,13 +6,13 @@ from diffusers import (
 )
 import torch
 from PIL import Image
-
-app = Flask(__name__, from io import BytesIO
+from io import BytesIO
 import requests
 from flask_cors import CORS
 import openai
 import os
-template_folder="frontend", static_folder="frontend")
+
+app = Flask(__name__, template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
@@ -25,11 +25,9 @@ def index():
 @app.post("/gpt")
 def request_gpt_question():
     data = request.json
-    print(data)
-    print(data["prompt"])
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        messages=data["messages"]  # 直接使用请求中的数据作为messages参数
+        messages=data["prompt"]  # 直接使用请求中的数据作为messages参数
     )
     s = response['choices']
     # 获取第一个响应对象
