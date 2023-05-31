@@ -25,7 +25,7 @@ def index():
 @app.post("/gpt")
 def request_gpt_question():
     data = request.json
-    print(data)
+
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=data["messages"]  # 直接使用请求中的数据作为messages参数
