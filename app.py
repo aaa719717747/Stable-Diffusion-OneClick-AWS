@@ -16,6 +16,9 @@ app = Flask(__name__, template_folder="frontend", static_folder="frontend")
 CORS(app, support_credentials=True)
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
+# 设置调试模式
+app.debug = True
+
 
 @app.route("/")
 def index():
