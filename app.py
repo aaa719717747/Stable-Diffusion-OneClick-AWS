@@ -46,8 +46,8 @@ def text_to_img():
     #model_id = 'Envvi/Inkpunk-Diffusion' # 温克朋克风格，提示词 nvinkpunk
     #model_id = 'nousr/robo-diffusion-2-base' # 看起来很酷的机器人，提示词 nousr robot
     #model_id = 'prompthero/openjourney' # openjorney 风格,提示词 mdjrny-v4 style
-    model_id = 'dreamlike-art/dreamlike-photoreal-2.0' #写实，真实风格，提示词 photo
-    #model_id = "stabilityai/stable-diffusion-2"
+    #model_id = 'dreamlike-art/dreamlike-photoreal-2.0' #写实，真实风格，提示词 photo
+    model_id = "stabilityai/stable-diffusion-2"
     output = "output_txt2img.png"
 
     scheduler = EulerDiscreteScheduler.from_pretrained(model_id, subfolder="scheduler")
