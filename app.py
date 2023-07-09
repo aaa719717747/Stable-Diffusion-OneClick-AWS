@@ -38,15 +38,14 @@ def request_gpt_question():
     return content, 200
 
 
-
 @app.post("/txt2img")
 def text_to_img():
     data = request.json
-     #model_id = "andite/anything-v4.0" # 默认的，高品质、高细节的动漫风格
-    #model_id = 'Envvi/Inkpunk-Diffusion' # 温克朋克风格，提示词 nvinkpunk
-    #model_id = 'nousr/robo-diffusion-2-base' # 看起来很酷的机器人，提示词 nousr robot
-    #model_id = 'prompthero/openjourney' # openjorney 风格,提示词 mdjrny-v4 style
-    #model_id = 'dreamlike-art/dreamlike-photoreal-2.0' #写实，真实风格，提示词 photo
+    # model_id = "andite/anything-v4.0" # 默认的，高品质、高细节的动漫风格
+    # model_id = 'Envvi/Inkpunk-Diffusion' # 温克朋克风格，提示词 nvinkpunk
+    # model_id = 'nousr/robo-diffusion-2-base' # 看起来很酷的机器人，提示词 nousr robot
+    # model_id = 'prompthero/openjourney' # openjorney 风格,提示词 mdjrny-v4 style
+    # model_id = 'dreamlike-art/dreamlike-photoreal-2.0' #写实，真实风格，提示词 photo
     model_id = "stabilityai/stable-diffusion-2"
     output = "output_txt2img.png"
 
